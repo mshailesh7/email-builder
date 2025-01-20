@@ -15,7 +15,9 @@ const EmailBuilder = () => {
 
   const fetchTemplates = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/getEmailTemplates");
+      const response = await axios.get(
+        "http://localhost:3001/getEmailTemplates"
+      );
       setTemplates(response.data);
     } catch (error) {
       console.error("Error fetching templates:", error);
@@ -68,12 +70,19 @@ const EmailBuilder = () => {
           emailConfig
         );
       } else {
-        await axios.post("http://localhost:3001/uploadEmailConfig", emailConfig);
+        await axios.post(
+          "http://localhost:3001/uploadEmailConfig",
+          emailConfig
+        );
       }
 
       await fetchTemplates();
       resetForm();
-      alert(`Email template ${editingTemplateId ? "updated" : "saved"} successfully!`);
+      alert(
+        `Email template ${
+          editingTemplateId ? "updated" : "saved"
+        } successfully!`
+      );
     } catch (error) {
       console.error("Error saving email template:", error);
       alert("Error saving template");
@@ -110,7 +119,6 @@ const EmailBuilder = () => {
   return (
     <div className="p-4 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-6">Email Builder</h1>
-      {/* Form Section */}
       <div className="space-y-4 bg-white p-6 rounded-lg shadow-sm mb-8">
         <input
           type="text"
@@ -127,7 +135,6 @@ const EmailBuilder = () => {
           className="border p-2 w-full h-32 rounded"
           required
         />
-        {/* Image Upload Section */}
         <div className="space-y-2">
           <input
             type="file"
@@ -135,7 +142,9 @@ const EmailBuilder = () => {
             accept="image/*"
             className="mb-2"
           />
-          {isUploading && <div className="text-blue-500">Uploading image...</div>}
+          {isUploading && (
+            <div className="text-blue-500">Uploading image...</div>
+          )}
           {imageUrl && (
             <div className="mt-4">
               <h3 className="font-semibold mb-2">Image Preview:</h3>
@@ -143,7 +152,9 @@ const EmailBuilder = () => {
                 src={imageUrl}
                 alt="Template preview"
                 className="max-w-md h-auto rounded shadow-sm"
-                onError={(e) => { e.target.src = "/api/placeholder/400/300"; }}
+                onError={(e) => {
+                  e.target.src = "/api/placeholder/400/300";
+                }}
               />
             </div>
           )}
@@ -157,10 +168,12 @@ const EmailBuilder = () => {
         </button>
       </div>
 
-      {/* Templates Display */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {templates.map((template) => (
-          <div key={template._id} className="border rounded-lg p-4 bg-white shadow-sm">
+          <div
+            key={template._id}
+            className="border rounded-lg p-4 bg-white shadow-sm"
+          >
             <h2 className="font-bold text-lg mb-2">{template.title}</h2>
             <p className="text-gray-600 mb-4">{template.content}</p>
             {template.image && (
@@ -169,7 +182,9 @@ const EmailBuilder = () => {
                   src={template.image}
                   alt={template.title}
                   className="w-full h-48 object-cover rounded"
-                  onError={(e) => { e.target.src = "/api/placeholder/400/300"; }}
+                  onError={(e) => {
+                    e.target.src = "/api/placeholder/400/300";
+                  }}
                 />
               </div>
             )}

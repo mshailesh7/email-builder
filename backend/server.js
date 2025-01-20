@@ -11,14 +11,12 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Cloudinary configuration
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// MongoDB connection
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -26,8 +24,7 @@ mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
   .then(() => console.log("Connected to Database"))
   .catch((err) => console.error("Failed to connect to MongoDB:", err));
 
-// Email Template Schema
-const emailTemplateSchema = new mongoose.Schema({
+  const emailTemplateSchema = new mongoose.Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
   image: { type: String }, // Image URL
@@ -36,12 +33,10 @@ const emailTemplateSchema = new mongoose.Schema({
 
 const EmailTemplate = mongoose.model("EmailTemplate", emailTemplateSchema);
 
-// Middleware setup
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("uploads"));
 
-// Multer storage configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "uploads/"),
   filename: (req, file, cb) => cb(null, file.originalname),
@@ -49,7 +44,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// API to get all email templates from MongoDB
 app.get("/getEmailTemplates", async (req, res) => {
   try {
     const templates = await EmailTemplate.find();
@@ -60,7 +54,6 @@ app.get("/getEmailTemplates", async (req, res) => {
   }
 });
 
-// Upload Image to Cloudinary
 app.post("/uploadImage", upload.single("image"), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: "No file uploaded" });
 
@@ -70,7 +63,6 @@ app.post("/uploadImage", upload.single("image"), async (req, res) => {
       resource_type: "auto",
     });
 
-    // Delete temporary file
     fs.unlink(req.file.path, (err) => err && console.error("Error deleting temp file:", err));
 
     res.json({ imageUrl: result.secure_url });
@@ -80,7 +72,6 @@ app.post("/uploadImage", upload.single("image"), async (req, res) => {
   }
 });
 
-// API to save email template
 app.post("/uploadEmailConfig", async (req, res) => {
   const { title, content, image } = req.body;
   try {
@@ -93,7 +84,6 @@ app.post("/uploadEmailConfig", async (req, res) => {
   }
 });
 
-// API to render and download the template as HTML
 app.post("/renderAndDownloadTemplate", (req, res) => {
   const { title, content, image } = req.body;
   const layout = `<!DOCTYPE html>
@@ -119,7 +109,6 @@ app.post("/renderAndDownloadTemplate", (req, res) => {
   });
 });
 
-// API to update email template
 app.put("/editEmailTemplate/:id", async (req, res) => {
   const { title, content, image } = req.body;
   try {
