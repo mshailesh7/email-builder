@@ -1,0 +1,86 @@
+/* EmailBuilder.css */
+.email-builder-container {
+    font-family: Arial, sans-serif;
+    width: 70%;
+    margin: auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .email-builder-title {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .email-builder-title input {
+    width: 80%;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .toolbar {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  .toolbar-button {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 8px 16px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+  }
+  
+  .toolbar-button:hover {
+    background-color: #ddd;
+  }
+  
+  .content-editor {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  .content-editor .public-DraftEditor-content {
+    min-height: 150px;
+  }
+  
+  .image-upload {
+    text-align: center;
+  }
+  
+  .uploaded-image {
+    max-width: 100px;
+    height: auto;
+    margin-top: 10px;
+  }
+  
+  .insert-image-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #5e81ac;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .insert-image-btn:hover {
+    background-color: #4c6d8d;
+  }
+  
