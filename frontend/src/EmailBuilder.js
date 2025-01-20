@@ -16,7 +16,7 @@ const EmailBuilder = () => {
   const fetchTemplates = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3001/getEmailTemplates"
+        "https://email-builder-backend-fkiu.onrender.com/getEmailTemplates"
       );
       setTemplates(response.data);
     } catch (error) {
@@ -33,7 +33,7 @@ const EmailBuilder = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/uploadImage",
+        "https://email-builder-backend-fkiu.onrender.com/uploadImage",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -66,12 +66,12 @@ const EmailBuilder = () => {
     try {
       if (editingTemplateId) {
         await axios.put(
-          `http://localhost:3001/editEmailTemplate/${editingTemplateId}`,
+          `https://email-builder-backend-fkiu.onrender.com/editEmailTemplate/${editingTemplateId}`,
           emailConfig
         );
       } else {
         await axios.post(
-          "http://localhost:3001/uploadEmailConfig",
+          "https://email-builder-backend-fkiu.onrender.com/uploadEmailConfig",
           emailConfig
         );
       }
@@ -99,7 +99,7 @@ const EmailBuilder = () => {
   const handleDownload = async (template) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/renderAndDownloadTemplate",
+        "https://email-builder-backend-fkiu.onrender.com/renderAndDownloadTemplate",
         template,
         { responseType: "blob" }
       );
